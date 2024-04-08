@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.css"
+    />
+
+    <style>
+      .submit-btn {
+        margin-top: 26px;
+        background-color: darkolivegreen;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+      }
+
+      .indv-movie {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .indv-movie p {
+        margin-bottom: 0;
+      }
+
+      .remove-btn {
+        margin-left: 20px;
+        background-color: red;
+        color: white;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Contains a form with two inputs for a title and rating along with a button to submit the form. -->
+      <h1 id="title" class="text-center">Movies App</h1>
+      <form id="movie-form">
+        <div class="row mb-5">
+          <div class="col-sm-4">
+            Title
+            <!-- Ensure that a title has at least 2 characters in it -->
+            <input
+              id="movie-title"
+              class="form-control"
+              minlength="2"
+              placeholder="Enter movie title"
+            />
+          </div>
+          <div class="col-sm-4">
+            Rating
+            <!-- Ensure that the rating of a movie can only be between 0 and 10 -->
+            <input
+              id="movie-rating"
+              class="form-control"
+              type="number"
+              min="0"
+              max="10"
+              placeholder="Enter movie rating"
+            />
+          </div>
+          <div class="col-sm-4">
+            <button class="submit-btn">Submit Movie</button>
+          </div>
+        </div>
+      </form>
+      <div id="movie-container"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        // When the form is submitted, capture the values for each of the inputs and append them to the DOM along with a button to remove each title and rating from the DOM
+        $("#movie-form").on("submit", function (e) {
+          e.preventDefault();
+          const title = $("#movie-title").val();
+          const rating = $("#movie-rating").val();
+          $("#movie-container").append(
+            `<div class='indv-movie'><p>${title} - ${rating}/10</p> <button class='remove-btn'>X</button></div>`
+          );
+          $("#movie-title").val("");
+          $("#movie-rating").val("");
+        });
+
+        // When the button to remove is clicked, remove each title and rating from the DOM
+        $("#movie-container").on("click", ".remove-btn", function () {
+          $(this).parent().remove();
+        });
+      });
+    </script>
+  </body>
+</html>
